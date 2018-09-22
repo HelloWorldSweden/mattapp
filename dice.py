@@ -54,9 +54,10 @@ def click():
     """
     Performs the operation of clicking the button. This will roll through
     the different dice heads
-
+https://medium.com/usevim/how-to-write-a-cleaner-vimrc-b7c5767191ef
     :return: None
     """
+    stat = list()
     t = 100 # start with a time delay of 100 ms and increase it as the dice rolls
     stop = randint(13, 18) # chooses random number between 13 - 17
     for x in range(stop):
@@ -66,9 +67,11 @@ def click():
         if x == stop - 1:
             # set text to the selected result
             text.set(str(x % 6 + 1))
+            stat.append(x%6+1)
             break
         root.after(t, dice_list[dice_index].grid_forget()) # forgets the grid and restarts
         t += 25
+    print(*stat, sep=", ")
 
 
 # create the window form
@@ -85,6 +88,7 @@ text.set("")
 result = tk.Label(root, textvariable=text, fg='black')
 result.grid(row=3, column=0, columnspan=3)
 dice_list = create_dice()
+
 
 # start with an empty canvas
 dice_list[0].grid(row=1, column=0, columnspan=3)
