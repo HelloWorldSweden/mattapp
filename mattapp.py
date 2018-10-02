@@ -31,7 +31,7 @@ f = plt.figure()
 a = f.add_subplot(1,1,1)
 
 class Dice(tk.Tk):
-    stat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    stat = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, *kwargs)
 
@@ -56,8 +56,10 @@ class Dice(tk.Tk):
         self.dice_list2[0].grid(row=1, column=1, columnspan=3)
         button = ttk.Button(self, text="Roll", command=combine_funcs(self.click, self.click2))
         button.grid(row=2, column=0, padx=3, pady=3)
-        button1 = ttk.Button(self, text="Quit", command=self.destroy)
+        button1 = ttk.Button(self, text="Roll", command=combine_funcs(self.click_fast1, self.click_fast2))
         button1.grid(row=2, column=1, pady=3)
+        button2 = ttk.Button(self, text="Quit", command=self.destroy)
+        button2.grid(row=3, column=0, pady=3)
         #Dice.stat = []
 
 
@@ -169,17 +171,41 @@ class Dice(tk.Tk):
         print(self.dice2)
         Dice.stat.append(self.dice1 + self.dice2)
         print(self.stat)
+
+
+    def click_fast1(self):
+        self.dice1 = 0
+        x = randint(13, 18) # chooses random number between 13 - 17
+
+        self.dice1 = (x%6+1)
+
+        print(self.dice1)
+
+
+    def click_fast2(self):
+        self.dice2 = 0
+        x = randint(13, 18) # chooses random number between 13 - 17
+
+        self.dice2 = (x%6+1)
+
+        print(self.dice2)
+        Dice.stat.append(self.dice1 + self.dice2)
+        print(self.stat)
+
+#    def choose(self):
+#        self.dice2 =
+
 # i for intervall
 def animate(i):
 
-    bins = 12
+    bins = 11
     dice_rolled= Dice.stat
     a.clear()
     a.hist(dice_rolled, bins)
 
 
 
-class SeaofBTCapp(tk.Tk):
+class MattApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, *kwargs)
@@ -192,7 +218,7 @@ class SeaofBTCapp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
 
-        for F in (StartPage, Graph):
+        for F in (StartPage, Graph, Bases):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -216,9 +242,10 @@ class StartPage(tk.Frame):
 
         button1 = ttk.Button(self, text="Diagram", command=lambda: controller.show_frame(Graph))
         button1.pack()
-
-        button2 = ttk.Button(self, text="Quit", command=quit)
+        button2 = ttk.Button(self, text="Bases", command=lambda: controller.show_frame(Bases))
         button2.pack()
+        button3 = ttk.Button(self, text="Quit", command=quit)
+        button3.pack()
 
 
 
@@ -252,12 +279,20 @@ class Graph(tk.Frame):
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
+class Bases(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text="Bases", font=LARGE_FONT)
+        label.pack(pady=10, padx=10)
+
+        button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(StartPage))
+        button1.pack()
 
 
 
 
 
 
-app = SeaofBTCapp()
+app = MattApp()
 ani = animation.FuncAnimation(f, animate, interval=1000)
 app.mainloop()
