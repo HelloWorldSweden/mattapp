@@ -1,3 +1,4 @@
+import tkinter as tk
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -7,16 +8,17 @@ from matplotlib import style
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-
+import sys
 from tkinter import ttk
 import tkinter as tk
+import time
 
 from random import *
 
 
 LARGE_FONT = ("ms serif", 20)
 NORM_FONT = ("ms serif", 12)
-SMALL_FONT = ("Verdana", 8)
+SMALL_FONT = ("ms serif", 8)
 
 style.use("ggplot")
 
@@ -149,7 +151,7 @@ class Dice(tk.Tk):
         self.i += 1
         print(self.i)
         self.dice1 = 0
-        t = 100 # start with a time delay of 100 ms and increase it as the dice rolls
+        t = 50 # start with a time delay of 100 ms and increase it as the dice rolls
         stop = randint(13, 18) # chooses random number between 13 - 17
         for x in range(stop):
             dice_index = x % 6 + 1 # gets the randomly selected dice head by modulo
@@ -161,13 +163,13 @@ class Dice(tk.Tk):
                 self.dice1 = (x%6+1)
                 break
             self.after(t, self.dice_list[dice_index].grid_forget()) # forgets the grid and restarts
-            t += 25
+            t += 15
         print(self.dice1)
 
 
     def click2(self):
         self.dice2 = 0
-        t = 100 # start with a time delay of 100 ms and increase it as the dice rolls
+        t = 50 # start with a time delay of 100 ms and increase it as the dice rolls
         stop = randint(13, 18) # chooses random number between 13 - 17
         for x in range(stop):
             dice_index = x % 6 + 1 # gets the randomly selected dice head by modulo
@@ -179,14 +181,19 @@ class Dice(tk.Tk):
                 self.dice2 = (x%6+1)
                 break
             self.after(t, self.dice_list2[dice_index].grid_forget()) # forgets the grid and restarts
-            t += 25
+            t += 15
 
         print(self.dice2)
         Dice.stat.append(self.dice1 + self.dice2)
         print(self.stat)
         if(self.i == 1):
-            self.popup_problem()
+            self.popup_problem1()
             print(self.i)
+        if(self.i==3):
+            self.popup_problem2()
+            print(self.i)
+
+
 
     def click_fast1(self):
         self.dice1 = 0
@@ -207,31 +214,76 @@ class Dice(tk.Tk):
         Dice.stat.append(self.dice1 + self.dice2)
         print(self.stat)
 
-    def popup_problem(self):
+    def popup_problem1(self):
         popup = tk.Tk()
+
         def get_value():
             ans = e1.get()
-            if (ans=="1/6"):
+            corr_ans = ans.replace(" ", "")
+            print(corr_ans)
+            if (corr_ans=="1/36"):
                 result1 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
                 result1.grid(row=3, column=0, columnspan=2)
+
             else:
-                result2 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
-                result2.grid(row=3, column=0, columnspan=2)
+                result1 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result1.grid(row=3, column=0, columnspan=2)
+
+                #result2.destroy()
 
         popup.wm_title("Problem")
         label1 = ttk.Label(popup, text="Hur stor är sannolikheten att kasta två ettor nästa gång du kastar?", font=NORM_FONT)
         label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
-        label2 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
-        label2.grid(row=1, column=0, sticky="w", padx=3, pady=3)
+        label2=ttk.Label(popup, text="Svara exakt", font=SMALL_FONT)
+        label2.grid(row=1, columnspan=2, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
+        label3.grid(row=2, column=0, sticky="w", padx=3, pady=3)
 
         e1 = ttk.Entry(popup)
-        e1.grid(row=1, column=0, sticky="e")
+        e1.grid(row=2, column=0, sticky="e")
 
         button1 = ttk.Button(popup, text="Svara", command=get_value)
-        button1.grid(row=1, column=1, padx=3, pady=3, sticky="e")
+        button1.grid(row=2, column=1, padx=3, pady=3, sticky="e")
         button2 = ttk.Button(popup, text="Quit", command=popup.destroy)
-        button2.grid(row=2, column=1, padx=3, pady=3, sticky="e")
+        button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
         popup.mainloop()
+
+    def popup_problem2(self):
+        popup = tk.Tk()
+        result2 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+
+        def get_value():
+            ans = e1.get()
+            corr_ans = ans.replace(" ", "")
+            print(corr_ans)
+            if (corr_ans=="1/6"):
+                result1 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
+                result1.grid(row=3, column=0, columnspan=2)
+
+            else:
+                result1 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+
+                #result2.destroy()
+
+        popup.wm_title("Problem")
+        label1 = ttk.Label(popup, text="""Hur stor är sannolikheten att få 7 som sammanlagd summa
+nästa gång du kastar?""", font=NORM_FONT)
+        label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
+        label2=ttk.Label(popup, text="Svara exakt", font=SMALL_FONT)
+        label2.grid(row=1, columnspan=2, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
+        label3.grid(row=2, column=0, sticky="w", padx=3, pady=3)
+
+        e1 = ttk.Entry(popup)
+        e1.grid(row=2, column=0, sticky="e")
+
+        button1 = ttk.Button(popup, text="Svara", command=get_value)
+        button1.grid(row=2, column=1, padx=3, pady=3, sticky="e")
+        button2 = ttk.Button(popup, text="Quit", command=popup.destroy)
+        button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
+        popup.mainloop()
+
+
 
 class MattApp(tk.Tk):
 
@@ -258,9 +310,6 @@ class MattApp(tk.Tk):
         frame.tkraise()
 
 
-
-
-
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -273,7 +322,7 @@ class StartPage(tk.Frame):
         button1.pack()
         button2 = ttk.Button(self, text="Bases", command=lambda: controller.show_frame(Bases))
         button2.pack()
-        button3 = ttk.Button(self, text="Quit", command=quit)
+        button3 = ttk.Button(self, text="Quit", command=sys.exit)
         button3.pack()
 
 
