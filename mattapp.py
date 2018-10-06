@@ -192,7 +192,18 @@ class Dice(tk.Tk):
         if(self.i==3):
             self.popup_problem2()
             print(self.i)
-
+        if(self.i==5):
+            self.popup_problem3()
+            print(self.i)
+        if(self.i==7):
+            self.popup_problem4()
+            print(self.i)
+        if(self.i==9):
+            self.popup_problem5()
+            print(self.i)
+        if(self.i==11):
+            self.popup_problem6()
+            print(self.i)
 
 
     def click_fast1(self):
@@ -229,7 +240,6 @@ class Dice(tk.Tk):
                 result1 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
                 result1.grid(row=3, column=0, columnspan=2)
 
-                #result2.destroy()
 
         popup.wm_title("Problem")
         label1 = ttk.Label(popup, text="Hur stor är sannolikheten att kasta två ettor nästa gång du kastar?", font=NORM_FONT)
@@ -250,23 +260,22 @@ class Dice(tk.Tk):
 
     def popup_problem2(self):
         popup = tk.Tk()
-        result2 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
-
         def get_value():
             ans = e1.get()
             corr_ans = ans.replace(" ", "")
             print(corr_ans)
             if (corr_ans=="1/6"):
-                result1 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
-                result1.grid(row=3, column=0, columnspan=2)
+                result3 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
+                result3.grid(row=3, column=0, columnspan=2)
 
             else:
-                result1 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result4 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result4.grid(row=3, column=0, columnspan=2)
 
                 #result2.destroy()
 
         popup.wm_title("Problem")
-        label1 = ttk.Label(popup, text="""Hur stor är sannolikheten att få 7 som sammanlagd summa
+        label1 = ttk.Label(popup, text="""Hur stor är sannolikheten att få en sammanlagd summa av 7
 nästa gång du kastar?""", font=NORM_FONT)
         label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
         label2=ttk.Label(popup, text="Svara exakt", font=SMALL_FONT)
@@ -283,6 +292,143 @@ nästa gång du kastar?""", font=NORM_FONT)
         button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
         popup.mainloop()
 
+    def popup_problem3(self):
+        popup = tk.Tk()
+
+        def get_value():
+            ans = e1.get()
+            corr_ans = ans.replace(" ", "")
+            print(corr_ans)
+            if (corr_ans=="15/36"):
+                result5 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
+                result5.grid(row=3, column=0, columnspan=2)
+
+            else:
+                result6 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result6.grid(row=3, column=0, columnspan=2)
+
+                #result2.destroy()
+
+        popup.wm_title("Problem")
+        label1 = ttk.Label(popup, text="""Hur stor är sannolikheten att summan är större än 7
+nästa gång du kastar?""", font=NORM_FONT)
+        label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
+        label2=ttk.Label(popup, text="Svara exakt", font=SMALL_FONT)
+        label2.grid(row=1, columnspan=2, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
+        label3.grid(row=2, column=0, sticky="w", padx=3, pady=3)
+
+        e1 = ttk.Entry(popup)
+        e1.grid(row=2, column=0, sticky="e")
+
+        button1 = ttk.Button(popup, text="Svara", command=get_value)
+        button1.grid(row=2, column=1, padx=3, pady=3, sticky="e")
+        button2 = ttk.Button(popup, text="Quit", command=popup.destroy)
+        button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
+        popup.mainloop()
+
+
+    def popup_problem4(self):
+        popup = tk.Tk()
+
+        def get_value():
+            ans = e1.get()
+            corr_ans = ans.replace(" ", "")
+            print(corr_ans)
+            if (corr_ans=="0.03"):
+                result7 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
+                result7.grid(row=3, column=0, columnspan=2)
+
+            else:
+                result8 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result8.grid(row=3, column=0, columnspan=2)
+
+
+        popup.wm_title("Problem")
+        label1 = ttk.Label(popup, text="Hur stor är sannolikheten i procent att kasta två ettor nästa gång du kastar?", font=NORM_FONT)
+        label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
+        label2=ttk.Label(popup, text="Avrunda till två decimaler", font=SMALL_FONT)
+        label2.grid(row=1, columnspan=2, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
+        label3.grid(row=2, column=0, sticky="w", padx=3, pady=3)
+
+        e1 = ttk.Entry(popup)
+        e1.grid(row=2, column=0, sticky="e")
+
+        button1 = ttk.Button(popup, text="Svara", command=get_value)
+        button1.grid(row=2, column=1, padx=3, pady=3, sticky="e")
+        button2 = ttk.Button(popup, text="Quit", command=popup.destroy)
+        button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
+        popup.mainloop()
+
+    def popup_problem5(self):
+        popup = tk.Tk()
+        def get_value():
+            ans = e1.get()
+            corr_ans = ans.replace(" ", "")
+            print(corr_ans)
+            if (corr_ans=="0.17"):
+                result9 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
+                result9.grid(row=3, column=0, columnspan=2)
+
+            else:
+                result10 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result10.grid(row=3, column=0, columnspan=2)
+
+                #result2.destroy()
+
+        popup.wm_title("Problem")
+        label1 = ttk.Label(popup, text="""Hur stor är sannolikheten i procent att få en sammanlagd summa av 7
+nästa gång du kastar?""", font=NORM_FONT)
+        label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
+        label2=ttk.Label(popup, text="Avrunda till två decimaler", font=SMALL_FONT)
+        label2.grid(row=1, columnspan=2, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
+        label3.grid(row=2, column=0, sticky="w", padx=3, pady=3)
+
+        e1 = ttk.Entry(popup)
+        e1.grid(row=2, column=0, sticky="e")
+
+        button1 = ttk.Button(popup, text="Svara", command=get_value)
+        button1.grid(row=2, column=1, padx=3, pady=3, sticky="e")
+        button2 = ttk.Button(popup, text="Quit", command=popup.destroy)
+        button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
+        popup.mainloop()
+
+    def popup_problem6(self):
+        popup = tk.Tk()
+
+        def get_value():
+            ans = e1.get()
+            corr_ans = ans.replace(" ", "")
+            print(corr_ans)
+            if (corr_ans=="0.42"):
+                result11 = ttk.Label(popup, text="Rätt!", font=LARGE_FONT)
+                result11.grid(row=3, column=0, columnspan=2)
+
+            else:
+                result12 = ttk.Label(popup, text="Det var tyvärr fel. Prova igen!")
+                result12.grid(row=3, column=0, columnspan=2)
+
+                #result2.destroy()
+
+        popup.wm_title("Problem")
+        label1 = ttk.Label(popup, text="""Hur stor är sannolikheten i procent att summan är större än 7
+nästa gång du kastar?""", font=NORM_FONT)
+        label1.grid(row=0, columnspan=2, padx=3, pady=3, sticky="w")
+        label2=ttk.Label(popup, text="Svara exakt", font=SMALL_FONT)
+        label2.grid(row=1, columnspan=2, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(popup, text="Svar: ", font=NORM_FONT)
+        label3.grid(row=2, column=0, sticky="w", padx=3, pady=3)
+
+        e1 = ttk.Entry(popup)
+        e1.grid(row=2, column=0, sticky="e")
+
+        button1 = ttk.Button(popup, text="Svara", command=get_value)
+        button1.grid(row=2, column=1, padx=3, pady=3, sticky="e")
+        button2 = ttk.Button(popup, text="Quit", command=popup.destroy)
+        button2.grid(row=3, column=1, padx=3, pady=3, sticky="e")
+        popup.mainloop()
 
 
 class MattApp(tk.Tk):
