@@ -507,14 +507,15 @@ class Bases(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.configure(background='white')
-
+        self.i = 0
+        self.j = 0
         label = ttk.Label(self, text="Talbaser", font=LARGE_FONT, background="white")
         label.grid(row=0, column=2, columnspan=2, pady=10)
         self.rand_ans = 18
         def run_binary():
             self.rand_ans = randint(0, 50)
             label0.config(text=str(self.rand_ans))
-        #Binary Converter - www.101computing.net/binary-converter-using-python/
+            self.j += 1
 
         #Binary to denary conversion
         def binary_converter(bi):
@@ -537,6 +538,9 @@ class Bases(tk.Frame):
                   denary = denary//2
             print("Your binary number is: " + binary)
             return binary
+
+
+
         def clear_text():
             self.e2.delete(0, 'end')
 
@@ -552,10 +556,17 @@ class Bases(tk.Frame):
                 #result = ttk.Label(self, text="Rätt!", font=LARGE_FONT, background="white")
                 #result.pack(anchor="center")
                 label4.config(text="Rätt!")
+                if(self.i == self.j):
+                    self.i += 1
+                    label5.config(text=str(self.i))
+
             else:
                 #result = ttk.Label(self, text="Det var tyvärr fel. Prova igen!")
                 #result.pack()
                 label4.config(text="Det var tyvärr fel. Prova igen!")
+                self.i = 0
+                label5.config(text=str(self.i))
+
 
 
         button1 = ttk.Button(self, text="Hem", command=lambda: controller.show_frame(StartPage))
@@ -574,8 +585,10 @@ class Bases(tk.Frame):
         button0.grid(row=4, column=3,columnspan=1, padx=3, sticky="w")
         button1 = ttk.Button(self, text="Svara", command=get_value)
         button1.grid(row=5, column=3,columnspan=1, padx=3, sticky="w")
+        label5 = ttk.Label(self, text=str(self.i), font=NORM_FONT, background="white")
+        label5.grid(row=7, column=0, columnspan=1, sticky="w", padx=3)
         label4 = ttk.Label(self, text="", font=NORM_FONT, background="white")
-        label4.grid(row=7, column=0, columnspan=4, sticky="w", padx=3)
+        label4.grid(row=7, column=1, columnspan=4, sticky="w", padx=3)
         #button2 = ttk.Button(self, text="Quit", command=self.destroy)
         #button2.grid(row=9, column=0,columnspan=1, padx=3, sticky="w")
 
