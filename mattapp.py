@@ -506,15 +506,78 @@ class Graph(tk.Frame):
 class Bases(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Bases", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
+        self.configure(background='white')
 
-        button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        label = ttk.Label(self, text="Talbaser", font=LARGE_FONT, background="white")
+        label.grid(row=0, column=2, columnspan=2, pady=10)
+        self.rand_ans = 18
+        def run_binary():
+            self.rand_ans = randint(0, 50)
+            label0.config(text=str(self.rand_ans))
+        #Binary Converter - www.101computing.net/binary-converter-using-python/
+
+        #Binary to denary conversion
+        def binary_converter(bi):
+            binary = bi
+            denary = 0
+            for digit in binary:
+                #A left shift in binary means x2
+                denary = denary*2 + int(digit)
+                print("Your denary number is: " + str(denary))
 
 
 
+        def denary_convert(dec):
+             #Denary to binary conversion
+            denary = dec
+            binary=""
+            while denary>0:
+                  #A left shift in binary means /2
+                  binary = str(denary%2) + binary
+                  denary = denary//2
+            print("Your binary number is: " + binary)
+            return binary
+        def clear_text():
+            self.e2.delete(0, 'end')
 
+        def get_value():
+
+            ans = self.e2.get()
+            fixed_ans = ans.replace(" ", "")
+            correct_ans = denary_convert(self.rand_ans)
+            string_correct_ans = str(correct_ans)
+            print(fixed_ans)
+
+            if (fixed_ans==correct_ans):
+                #result = ttk.Label(self, text="Rätt!", font=LARGE_FONT, background="white")
+                #result.pack(anchor="center")
+                label4.config(text="Rätt!")
+            else:
+                #result = ttk.Label(self, text="Det var tyvärr fel. Prova igen!")
+                #result.pack()
+                label4.config(text="Det var tyvärr fel. Prova igen!")
+
+
+        button1 = ttk.Button(self, text="Hem", command=lambda: controller.show_frame(StartPage))
+        button1.grid(row=0, column=0, columnspan=1, padx=3, sticky="w")
+        label1 = ttk.Label(self, text="Konvertera decimaltalet till ett binärtal", font=NORM_FONT, background="white")
+        label1.grid(row=3, column=0, columnspan=3, padx=3, pady=3)
+        label0 = ttk.Label(self, text=str(self.rand_ans), font=LARGE_FONT, background="white")
+        label0.grid(row=4, column=0, padx=3, pady=3, sticky="w")
+        label3 = ttk.Label(self, text="Svar: ", font=NORM_FONT, background="white")
+        label3.grid(row=5, column=0, sticky="w", padx=3)
+
+        self.e2 = ttk.Entry(self)
+        self.e2.grid(row=5, column=1, columnspan=2,padx=3, pady=3, sticky="w")
+
+        button0 = ttk.Button(self, text="Nytt tal", command=combine_funcs(clear_text,run_binary))
+        button0.grid(row=4, column=3,columnspan=1, padx=3, sticky="w")
+        button1 = ttk.Button(self, text="Svara", command=get_value)
+        button1.grid(row=5, column=3,columnspan=1, padx=3, sticky="w")
+        label4 = ttk.Label(self, text="", font=NORM_FONT, background="white")
+        label4.grid(row=7, column=0, columnspan=4, sticky="w", padx=3)
+        #button2 = ttk.Button(self, text="Quit", command=self.destroy)
+        #button2.grid(row=9, column=0,columnspan=1, padx=3, sticky="w")
 
 
 app = MattApp()
