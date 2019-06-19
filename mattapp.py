@@ -273,7 +273,7 @@ class Bases(tk.Frame):
                 print("Your denary number is: " + str(denary))
 
 
-
+        #Decimal to binary
         def denary_convert(dec):
              #Denary to binary conversion
             denary = dec
